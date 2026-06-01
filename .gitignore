@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+
+# Never commit real sales/royalty reports — they're personal financial data.
+# Point the CLI at a folder outside the repo instead.
+/reports/
+consolidated.csv
