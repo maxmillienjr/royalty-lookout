@@ -9,11 +9,12 @@ import type { Adapter, SaleRecord } from "../types.js";
 export const ingramSparkAdapter: Adapter = {
   source: "ingramspark",
   async parse(filePath) {
-    return readCsv(filePath)
-      .filter((r) => r["Title"])
-      .map((r): SaleRecord => {
-        const id = cleanId(r["ISBN"]);
-        return {
+    // flatMap in one pass: return [] to drop a row, [record] to keep it.
+    return readCsv(filePath).flatMap((r): SaleRecord[] => {
+      if (!r["Title"]) return [];
+      const id = cleanId(r["ISBN"]);
+      return [
+        {
           source: "ingramspark",
           saleDate: null,
           title: r["Title"],
@@ -25,7 +26,8 @@ export const ingramSparkAdapter: Adapter = {
           unitsNet: toNumber(r["Units Sold"]),
           currency: null,
           netRevenue: null,
-        };
-      });
+        },
+      ];
+    });
   },
 };

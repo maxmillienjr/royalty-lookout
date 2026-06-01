@@ -16,11 +16,12 @@ export const streetLibAdapter: Adapter = {
     const sheet = sheets.find((s) => s.name === SHEET);
     if (!sheet) return [];
 
-    return sheet.rows
-      .filter((r) => r["Title"])
-      .map((r): SaleRecord => {
-        const id = cleanId(r["Isbn"]);
-        return {
+    // flatMap in one pass: return [] to drop a row, [record] to keep it.
+    return sheet.rows.flatMap((r): SaleRecord[] => {
+      if (!r["Title"]) return [];
+      const id = cleanId(r["Isbn"]);
+      return [
+        {
           source: "streetlib",
           saleDate: toIsoDate(r["Order date"]),
           title: String(r["Title"]),
@@ -32,7 +33,8 @@ export const streetLibAdapter: Adapter = {
           unitsNet: toNumber(r["Quantity"]),
           currency: r["Currency"] ? String(r["Currency"]) : null,
           netRevenue: r["Revenues"] != null ? toNumber(r["Revenues"]) : null,
-        };
-      });
+        },
+      ];
+    });
   },
 };

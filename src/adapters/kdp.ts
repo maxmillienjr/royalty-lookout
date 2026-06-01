@@ -15,11 +15,12 @@ export const kdpAdapter: Adapter = {
     const sheet = sheets.find((s) => s.name === SHEET);
     if (!sheet) return [];
 
-    return sheet.rows
-      .filter((r) => r["Title"])
-      .map((r): SaleRecord => {
-        const id = cleanId(r["ASIN/ISBN"]);
-        return {
+    // flatMap in one pass: return [] to drop a row, [record] to keep it.
+    return sheet.rows.flatMap((r): SaleRecord[] => {
+      if (!r["Title"]) return [];
+      const id = cleanId(r["ASIN/ISBN"]);
+      return [
+        {
           source: "kdp",
           saleDate: toIsoDate(r["Royalty Date"]),
           title: String(r["Title"]),
@@ -33,8 +34,9 @@ export const kdpAdapter: Adapter = {
           unitsNet: toNumber(r["Net Units Sold"]),
           currency: r["Currency"] ? String(r["Currency"]) : null,
           netRevenue: toNumber(r["Royalty"]),
-        };
-      });
+        },
+      ];
+    });
   },
 };
 
