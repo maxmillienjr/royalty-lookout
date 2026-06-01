@@ -46,9 +46,15 @@ Design rules in v0.1:
 
 ```bash
 npm install
-npm run dev -- /path/to/your/reports            # print a summary
-npm run dev -- /path/to/your/reports --out out.csv   # also write the merged ledger
+npm run dev -- /path/to/your/reports                    # print a summary
+npm run dev -- /path/to/your/reports --out out.csv      # also write the merged ledger
+npm run dev -- /path/to/your/reports --html report.html # also write a visual report
 ```
+
+`--html` writes a single self-contained file (inline styles, no external
+assets, no server) with summary cards and a sortable table — open it straight
+in a browser. It's the answer to "I don't want to read a terminal": drop your
+reports in a folder, generate, double-click.
 
 Point it at a folder containing your downloaded reports; it sniffs each file,
 routes it to the right adapter, and skips anything it doesn't recognize (for
@@ -69,7 +75,8 @@ src/
     index.ts          sniffs a file and dispatches to the right adapter
   util/               csv (encoding-aware), xlsx, id/format/date normalizers
   aggregate.ts        per-currency / per-source / per-format rollups
-  cli.ts              folder in → summary + consolidated.csv out
+  report.ts           renders the consolidated data as a self-contained HTML page
+  cli.ts              folder in → summary + consolidated.csv + report.html out
 ```
 
 Each distributor lives behind an **adapter**: a small module whose only job is
@@ -82,7 +89,7 @@ adapter and teaching `detect()` to recognize it — nothing else changes.
 - v0.2: optional currency conversion to a reporting currency
 - v0.2: dedupe across sources by `product_id` + date
 - v0.2: month-over-month rollup output
-- later: a small static dashboard
+- later: a watched drop-folder that regenerates the report automatically
 
 ## License
 

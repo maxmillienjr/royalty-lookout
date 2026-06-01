@@ -7,3 +7,4 @@ dist/
 # Point the CLI at a folder outside the repo instead.
 /reports/
 consolidated.csv
+report.html

@@ -3,6 +3,7 @@ import { readdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { detect } from "./adapters/index.js";
 import { rollup } from "./aggregate.js";
+import { renderHtml } from "./report.js";
 import type { SaleRecord } from "./types.js";
 
 const COLUMNS: (keyof SaleRecord)[] = [
@@ -22,11 +23,13 @@ const COLUMNS: (keyof SaleRecord)[] = [
 async function main() {
   const dir = process.argv[2];
   if (!dir) {
-    console.error("usage: royalty-lookout <reports-dir> [--out consolidated.csv]");
+    console.error(
+      "usage: royalty-lookout <reports-dir> [--out consolidated.csv] [--html report.html]",
+    );
     process.exit(1);
   }
-  const outIdx = process.argv.indexOf("--out");
-  const outFile = outIdx > -1 ? process.argv[outIdx + 1] : null;
+  const outFile = flagValue("--out");
+  const htmlFile = flagValue("--html");
 
   const all: SaleRecord[] = [];
   for (const name of readdirSync(dir).sort()) {
@@ -56,6 +59,16 @@ async function main() {
     writeFileSync(outFile, toCsv(all));
     console.log(`\nwrote ${all.length} rows → ${outFile}`);
   }
+  if (htmlFile) {
+    writeFileSync(htmlFile, renderHtml(all));
+    console.log(`wrote report → ${htmlFile}`);
+  }
+}
+
+/** Read the value following a `--flag` on the command line, or null. */
+function flagValue(flag: string): string | null {
+  const i = process.argv.indexOf(flag);
+  return i > -1 ? (process.argv[i + 1] ?? null) : null;
 }
 
 function printSummary(records: SaleRecord[]) {
