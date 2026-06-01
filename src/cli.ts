@@ -22,7 +22,7 @@ const COLUMNS: (keyof SaleRecord)[] = [
 async function main() {
   const dir = process.argv[2];
   if (!dir) {
-    console.error("usage: rep-agg <reports-dir> [--out consolidated.csv]");
+    console.error("usage: royalty-lookout <reports-dir> [--out consolidated.csv]");
     process.exit(1);
   }
   const outIdx = process.argv.indexOf("--out");

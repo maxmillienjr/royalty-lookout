@@ -1,11 +1,11 @@
-# rep-agg
+# royalty-lookout
 
 Aggregate self-publishing royalty/sales reports from **KDP**, **IngramSpark**,
 and **StreetLib** into one normalized ledger.
 
 Wide indie authors publish through several distributors and then reconcile
 sales by hand in a spreadsheet, because every distributor exports a different
-shape. `rep-agg` melts those exports into a single table you can total, filter,
+shape. `royalty-lookout` melts those exports into a single table you can total, filter,
 or feed into anything else.
 
 ## The actual hard part
@@ -27,7 +27,7 @@ On top of that the files fight you: the IngramSpark CSV is UTF-16 with no BOM
 and wraps ISBNs in an Excel `="..."` formula; KDP ships a 9-sheet workbook;
 StreetLib hands you an `.xls` file that is secretly xlsx.
 
-`rep-agg` absorbs all of that and emits one clean schema:
+`royalty-lookout` absorbs all of that and emits one clean schema:
 
 ```
 source · sale_date · title · author · product_id · id_type · format · channel · units_net · currency · net_revenue
