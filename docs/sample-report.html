@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Royalty Lookout — sales report</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font: 15px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+         margin: 0; padding: 2rem; max-width: 1100px; margin-inline: auto; }
+  h1 { margin: 0 0 .25rem; font-size: 1.5rem; }
+  .sub { color: #6b7280; margin: 0 0 1.5rem; font-size: .85rem; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+           gap: 1rem; margin-bottom: 1.5rem; }
+  .cardbox { border: 1px solid #e5e7eb; border-radius: 10px; padding: 1rem; }
+  .cardbox h2 { margin: 0 0 .35rem; font-size: .72rem; text-transform: uppercase;
+                letter-spacing: .05em; color: #6b7280; }
+  .cardbox .v { font-size: 1.15rem; font-weight: 600; }
+  .note { color: #92400e; background: #fffbeb; border: 1px solid #fde68a;
+          padding: .6rem .8rem; border-radius: 8px; font-size: .85rem; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; }
+  th, td { text-align: left; padding: .45rem .6rem; border-bottom: 1px solid #eee; }
+  th { cursor: pointer; user-select: none; white-space: nowrap; position: sticky; top: 0;
+       background: Canvas; }
+  th:hover { color: #2563eb; }
+  th[data-sort="num"], td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  th.asc::after { content: " ▲"; } th.desc::after { content: " ▼"; }
+  td.muted { color: #9ca3af; }
+  tbody tr:hover { background: rgba(127,127,127,.06); }
+</style>
+</head>
+<body>
+  <h1>Royalty Lookout</h1>
+  <p class="sub">Consolidated from 9 rows · generated 2026-06-01 16:01</p>
+  <div class="cards"><div class="cardbox"><h2>Units sold</h2><div class="v">26</div></div>
+<div class="cardbox"><h2>Revenue</h2><div class="v">17.53 USD · 2.05 GBP · 8.30 EUR</div></div>
+<div class="cardbox"><h2>By source</h2><div class="v">kdp 11 · streetlib 7 · ingramspark 8</div></div>
+<div class="cardbox"><h2>By format</h2><div class="v">ebook 14 · paperback 10 · hardcover 2</div></div></div>
+  <p class="note">8 unit(s) have no revenue attached (units-only sources such as IngramSpark).</p>
+  <table>
+    <thead><tr>
+      <th data-sort="str">Source</th>
+      <th data-sort="str">Date</th>
+      <th data-sort="str">Title</th>
+      <th data-sort="str">Author</th>
+      <th data-sort="str">Product ID</th>
+      <th data-sort="str">Type</th>
+      <th data-sort="str">Format</th>
+      <th data-sort="str">Channel</th>
+      <th data-sort="num">Units</th>
+      <th data-sort="str">Cur</th>
+      <th data-sort="num">Revenue</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>kdp</td><td>2026-01-04</td><td>The Long Commute</td><td>Jordan Vale</td><td>B0DEMO1234</td><td>asin</td><td>ebook</td><td>Amazon.com</td><td class="num" data-v="5">5</td><td>USD</td><td class="num" data-v="3.46">3.46</td></tr>
+      <tr><td>kdp</td><td>2026-01-09</td><td>The Long Commute</td><td>Jordan Vale</td><td>9781234567890</td><td>isbn</td><td>paperback</td><td>Amazon.com</td><td class="num" data-v="3">3</td><td>USD</td><td class="num" data-v="5.69">5.69</td></tr>
+      <tr><td>kdp</td><td>2026-01-12</td><td>The Long Commute</td><td>Jordan Vale</td><td>B0DEMO1234</td><td>asin</td><td>ebook</td><td>Amazon.co.uk</td><td class="num" data-v="2">2</td><td>GBP</td><td class="num" data-v="2.05">2.05</td></tr>
+      <tr><td>kdp</td><td>2026-01-18</td><td>The Long Commute</td><td>Jordan Vale</td><td>9781234567890</td><td>isbn</td><td>paperback</td><td>Amazon.de</td><td class="num" data-v="1">1</td><td>EUR</td><td class="num" data-v="4.8">4.80</td></tr>
+      <tr><td>streetlib</td><td>2026-01-07</td><td>Signal &amp; Noise</td><td>Jordan Vale</td><td>9789876543210</td><td>isbn</td><td>ebook</td><td>Apple Books</td><td class="num" data-v="4">4</td><td>USD</td><td class="num" data-v="4.19">4.19</td></tr>
+      <tr><td>streetlib</td><td>2026-01-15</td><td>Signal &amp; Noise</td><td>Jordan Vale</td><td>9789876543210</td><td>isbn</td><td>ebook</td><td>Google Play</td><td class="num" data-v="2">2</td><td>EUR</td><td class="num" data-v="3.5">3.50</td></tr>
+      <tr><td>streetlib</td><td>2026-01-22</td><td>Signal &amp; Noise</td><td>Jordan Vale</td><td>9789876543210</td><td>isbn</td><td>ebook</td><td>Kobo</td><td class="num" data-v="1">1</td><td>USD</td><td class="num" data-v="4.19">4.19</td></tr>
+      <tr><td>ingramspark</td><td class="muted">—</td><td>The Long Commute</td><td class="muted">—</td><td>9781234567890</td><td>isbn</td><td>paperback</td><td>United States</td><td class="num" data-v="6">6</td><td class="muted">—</td><td class="num muted" data-v="">—</td></tr>
+      <tr><td>ingramspark</td><td class="muted">—</td><td>Signal &amp; Noise</td><td class="muted">—</td><td>9789876543210</td><td>isbn</td><td>hardcover</td><td>United Kingdom</td><td class="num" data-v="2">2</td><td class="muted">—</td><td class="num muted" data-v="">—</td></tr>
+    </tbody>
+  </table>
+<script>
+  document.querySelectorAll("th[data-sort]").forEach((th, i) => {
+    th.addEventListener("click", () => {
+      const table = th.closest("table");
+      const tbody = table.querySelector("tbody");
+      const numeric = th.dataset.sort === "num";
+      const asc = !th.classList.contains("asc");
+      const rows = [...tbody.rows].sort((a, b) => {
+        const x = a.cells[i].dataset.v ?? a.cells[i].textContent;
+        const y = b.cells[i].dataset.v ?? b.cells[i].textContent;
+        if (numeric) return (asc ? 1 : -1) * ((parseFloat(x) || 0) - (parseFloat(y) || 0));
+        return (asc ? 1 : -1) * String(x).localeCompare(String(y));
+      });
+      table.querySelectorAll("th").forEach((h) => h.classList.remove("asc", "desc"));
+      th.classList.add(asc ? "asc" : "desc");
+      rows.forEach((row) => tbody.appendChild(row));
+    });
+  });
+</script>
+</body>
+</html>

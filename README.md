@@ -8,6 +8,10 @@ sales by hand in a spreadsheet, because every distributor exports a different
 shape. `royalty-lookout` melts those exports into a single table you can total, filter,
 or feed into anything else.
 
+![A royalty-lookout HTML report generated from sample data](docs/sample-report.png)
+
+*The `--html` report, generated from sample data (not real sales).*
+
 ## The actual hard part
 
 These sources don't just use different column names — **they disagree on which
@@ -59,6 +63,22 @@ reports in a folder, generate, double-click.
 Point it at a folder containing your downloaded reports; it sniffs each file,
 routes it to the right adapter, and skips anything it doesn't recognize (for
 example IngramSpark's *rank* report, which carries no sales).
+
+### Which report to download from each distributor
+
+Each distributor offers several exports; `royalty-lookout` expects the
+**sales** report from each:
+
+- **KDP** — the **Royalties Estimator** export (the multi-sheet `.xlsx`
+  workbook; the tool reads its "Combined Sales" sheet).
+- **StreetLib** — the **sales report** (an "Items" sheet; it downloads as
+  `.xls` but is really xlsx — that's fine, the tool handles it).
+- **IngramSpark** — the per-title **sales report broken out by region/country**
+  (columns `Title, ISBN, Format, Country, Units Sold`). In the IngramSpark
+  portal this is the "Sales by Region"-style report. Do **not** use the
+  *Market Insights* / subject-rank report — it has no sales and is skipped.
+  Note IngramSpark's exports are units-only (no date, no revenue), so those
+  rows show units with empty revenue.
 
 > Your real reports are personal financial data — keep them outside the repo.
 > `.gitignore` already excludes `/reports/` and `consolidated.csv`.
